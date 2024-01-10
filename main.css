@@ -1,0 +1,22 @@
+.el-container {
+    height: 100%; 
+    border: 1px solid #eee
+}
+
+.el-header {
+    background-color: #B3C0D1;
+    color: #333;
+    line-height: 60px;
+}
+
+.el-aside {
+    color: #333;
+    background-color: rgb(238, 241, 246);
+    width: 200px;
+}
+
+canvas {
+    background-color: #fff;
+    border: 1px solid black;
+    display: block;
+}

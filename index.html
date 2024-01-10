@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- import element-ui CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <el-dialog title="Loading Model" :visible.sync="isModelLoading" width="20%" :before-close="cancelDownload"
+            center>
+            <el-progress :percentage="downloadProgress"></el-progress>
+        </el-dialog>
+
+        <el-dialog title="Infering" :visible.sync="isInferring" width="20%" center>
+            <el-progress :percentage="inferProgress"></el-progress>
+        </el-dialog>
+
+        <el-container>
+            <el-aside>
+                <el-menu :default-openeds="['1']">
+                    <el-submenu index="1">
+                        <template slot="title"><i class="el-icon-menu"></i>YOLO</template>
+                        <el-menu-item @click="selectNetwork('yolov1')" index="1">YOLO v1</el-menu-item>
+                        <el-menu-item @click="selectNetwork('yolov2')" index="2">YOLO v2</el-menu-item>
+                        <el-menu-item @click="selectNetwork('yolov3')" index="3">YOLO v3</el-menu-item>
+                        <el-menu-item @click="selectNetwork('yolov4')" index="4">YOLO v4</el-menu-item>
+                    </el-submenu>
+                    <el-submenu index="2">
+                        <template slot="title"><i class="el-icon-menu"></i>ResNet</template>
+                        <el-menu-item @click="selectNetwork('resnet50')" index="20">ResNet50</el-menu-item>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+
+            <el-container>
+                <el-header style="text-align: center; font-size: 20px; color:black">
+                    <span>Learn Deep Learning</span>
+                </el-header>
+
+                <el-main>
+                    <el-form size="medium" :inline="true">
+                        <el-form-item label="Image list">
+                            <el-select v-model="imageSelected" placeholder="Please Select" @change="imageSelChanged">
+                                <el-option v-for="item in imagesList" :key="item.name" :label="item.name"
+                                    :value="item.name">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+
+                        <el-form-item>
+                            <el-button type="primary" :loading="isModelLoading" :disabled="isModelLoading"
+                                @click="loadModel">Load
+                                Model</el-button>
+                        </el-form-item>
+
+                        <el-form-item>
+                            <el-button type="primary" @click="startInfer">Infer Go!</el-button>
+                        </el-form-item>
+
+                        <el-form-item>
+                            <el-switch v-model="webglAcce" active-text="WebGL Accelerate" inactive-text="No WebGL">
+                            </el-switch>
+                        </el-form-item>
+                    </el-form>
+                    <canvas id="canvas"></canvas>
+                </el-main>
+
+            </el-container>
+        </el-container>
+    </div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="main.js" type="module"></script>
+
+</html>
